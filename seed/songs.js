@@ -1,0 +1,130 @@
+const db = require('../db');
+const Album = require('../models/album');
+const Song = require('../models/song');
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'))
+
+const main = async () => {
+    // if(this.item === undefined) {return}
+    const Gorillaz = await Album.find({ name: 'Gorillaz' })
+    const Demon_Days = await Album.find({ name: 'Demon Days' })
+    const Plastic_Beach = await Album.find({ name: 'Plastic Beach' })
+    const The_Fall = await Album.find({ name: 'The Fall' })
+    const Humanz = await Album.find({ name: 'Humanz' })
+    const The_Now_Now = await Album.find({ name: 'The Now Now' })
+    const Song_Machine_Season_One_Strange_Timez = await Album.find({ name: 'Song Machine, Season One: Strange Timez' })
+    const songs = [
+        { title: 'Re-Hash', track_number: "1", song_length: "3:41", album_id: Gorillaz[0]._id, explicit: false },
+        { title: '5/4', track_number: "2", song_length: "2:42", album_id: Gorillaz[0]._id, explicit: false },
+        { title: 'Tomorrow Comes Today', track_number: '3', song_length: '3:14', album_id: Gorillaz[0]._id, explicit: false },
+        { title: 'New Genius(Brother)', track_number: '4', song_length: '4:00', album_id: Gorillaz[0]._id, explicit: false },
+        { title: 'Clint Eastwood', track_number: '5', song_length: '5:43', album_id: Gorillaz[0]._id, explicit: true },
+        { title: 'Man Research(Clapper', track_number: '6', song_length: '4:33', album_id: Gorillaz[0]._id, explicit: false },
+        { title: 'Punk', track_number: '7', song_length: '1:39', album_id: Gorillaz[0]._id, explicit: false },
+        { title: 'Sound Check(Gravity)', track_number: '8', song_length: '4:43', album_id: Gorillaz[0]._id, explicit: false },
+        { title: 'Double Bass', track_number: '9', song_length: '4:47', album_id: Gorillaz[0]._id, explicit: false },
+        { title: 'Rock The House', track_number: '10', song_length: '4:09', album_id: Gorillaz[0]._id, explicit: true},
+        { title: '19-2000', track_number: '11', song_length: '3:31', album_id: Gorillaz[0]._id, explicit: false },
+        { title: 'Latin Simone', track_number: '12', song_length: '3:39', album_id: Gorillaz[0]._id, explicit: false },
+        { title: 'Starshine', track_number: '13', song_length: '3:34', album_id: Gorillaz[0]._id, explicit: false },
+        { title: 'Slow Country', track_number: '14', song_length: '3:37', album_id: Gorillaz[0]._id, explicit: false },
+        { title: 'M1 A1', track_number: '15', song_length: '8:30', album_id: Gorillaz[0]._id, explicit: false },
+        { title: 'Dracula', track_number: '16', song_length: '4:41', album_id: Gorillaz[0]._id, explicit: false },
+        { title: 'Left Hand Suzuki Method', track_number: '17', song_length: '9:59', album_id: Gorillaz[0]._id, explicit: false },
+        { title: 'Intro', track_number: '1', song_length: '1:03', album_id: Demon_Days[0]._id, explicit: false },
+        { title: 'Last Living Souls', track_number: '2', song_length: '3:10', album_id: Demon_Days[0]._id, explicit: false },
+        { title: 'Kid With Guns', track_number: '3', song_length: '3:46', album_id: Demon_Days[0]._id, explicit: false },
+        { title: 'O Green World', track_number: '4', song_length: '4:32', album_id: Demon_Days[0]._id, explicit: false },
+        { title: 'Dirty Harry', track_number: '5', song_length: '3:44', album_id: Demon_Days[0]._id, explicit: false },
+        { title: 'Feel Good Inc', track_number: '6', song_length: '3:41', album_id: Demon_Days[0]._id, explicit: false },
+        { title: 'El Manana', track_number: '7', song_length: '3:50', album_id: Demon_Days[0]._id, explicit: false },
+        { title: 'Every Planet We Reach Is Dead', track_number: '8', song_length: '4:53', album_id: Demon_Days[0]._id, explicit: false },
+        { title: 'November Has Come', track_number: '9', song_length: '2:41', album_id: Demon_Days[0]._id, explicit: false },
+        { title: 'All Alone', track_number: '10', song_length: '3:30', album_id: Demon_Days[0]._id, explicit: false },
+        { title: 'White Light', track_number: '11', song_length: '2:08', album_id: Demon_Days[0]._id, explicit: false },
+        { title: 'Dare', track_number: '12', song_length: '4:04', album_id: Demon_Days[0]._id, explicit: false },
+        { title: 'Fire Coming out of the Monkeys Head', track_number: '13', song_length: '3:16', album_id: Demon_Days[0]._id, explicit: false },
+        { title: 'Dont Get Lost In Heaven', track_number: '14', song_length: '2:00', album_id: Demon_Days[0]._id, explicit: false },
+        { title: 'Demon Days', track_number: '15', song_length: '4:29', album_id: Demon_Days[0]._id, explicit: false },
+        { title: 'Ochestral Intro', track_number: '1', song_length: '1:09', album_id: Plastic_Beach[0]._id, explicit: false },
+        { title: 'Welcome to the World of the Plastic Beach', track_number: '2', song_length: '3:35', album_id: Plastic_Beach[0]._id, explicit: false },
+        { title: 'White Flag', track_number: '3', song_length: '3:43', album_id: Plastic_Beach[0]._id, explicit: true },
+        { title: 'Rhinestone Eyes', track_number: '4', song_length: '3:20', album_id: Plastic_Beach[0]._id, explicit: false },
+        { title: 'Stylo', track_number: '5', song_length: '4:30', album_id: Plastic_Beach[0]._id, explicit: false },
+        { title: 'Superfast Jellyfish', track_number: '6', song_length: '2:54', album_id: Plastic_Beach[0]._id, explicit: false },
+        { title: 'Empire Ants', track_number: '7', song_length: '4:43', album_id: Plastic_Beach[0]._id, explicit: false },
+        { title: 'Glitter Freeze', track_number: '8', song_length: '4:03', album_id: Plastic_Beach[0]._id, explicit: false },
+        { title: 'Some Kind of Nature', track_number: '9', song_length: '2:59', album_id: Plastic_Beach[0]._id, explicit: false },
+        { title: 'On Melancholy Hill', track_number: '10', song_length: '3:53', album_id: Plastic_Beach[0]._id, explicit: false },
+        { title: 'Broken', track_number: '11', song_length: '3:17', album_id: Plastic_Beach[0]._id, explicit: false },
+        { title: 'Sweepstakes', track_number: '12', song_length: '5:20', album_id: Plastic_Beach[0]._id, explicit: false },
+        { title: 'Plastic Beach', track_number: '13', song_length: '3:47', album_id: Plastic_Beach[0]._id, explicit: false },
+        { title: 'To Binge', track_number: '14', song_length: '3:55', album_id: Plastic_Beach[0]._id, explicit: false },
+        { title: 'Cloud of Unknowing', track_number: '15', song_length: '3:06', album_id: Plastic_Beach[0]._id, explicit: false },
+        { title: 'Pirate Jet', track_number: '16', song_length: '2:32', album_id: Plastic_Beach[0]._id, explicit: false },
+        { title: 'Phoner to Arizona', track_number: '1', song_length: '4:14', album_id: The_Fall[0]._id, explicit: false },
+        { title: 'Revolving Doors', track_number: '2', song_length: '3:26', album_id: The_Fall[0]._id, explicit: false },
+        { title: 'Hillbilly Man', track_number: '3', song_length: '3:50', album_id: The_Fall[0]._id, explicit: false },
+        { title: 'Detroit', track_number: '4', song_length: '2:03', album_id: The_Fall[0]._id, explicit: false },
+        { title: 'Shy-Town', track_number: '5', song_length: '2:54', album_id: The_Fall[0]._id, explicit: false },
+        { title: 'Little Pink Plastic Bags', track_number: '6', song_length: '3:09', album_id: The_Fall[0]._id, explicit: false },
+        { title: 'The Joplin Spider', track_number: '7', song_length: '3:22', album_id: The_Fall[0]._id, explicit: false },
+        { title: 'The Parish of Space Dust', track_number: '8', song_length: '2:25', album_id: The_Fall[0]._id, explicit: false },
+        { title: 'The Snake in Dallas', track_number: '9', song_length: '2:11', album_id: The_Fall[0]._id, explicit: false },
+        { title: 'Amarillo', track_number: '10', song_length: '3:24', album_id: The_Fall[0]._id, explicit: false },
+        { title: 'The Speak It Mountains', track_number: '11', song_length: '2:14', album_id: The_Fall[0]._id, explicit: false },
+        { title: 'Aspen Forest', track_number: '12', song_length: '2:50', album_id: The_Fall[0]._id, explicit: false },
+        { title: 'Bobby in Phoenix', track_number: '13', song_length: '3:16', album_id: The_Fall[0]._id, explicit: false },
+        { title: 'California and the Slipping of the Sun', track_number: '14', song_length: '3:24', album_id: The_Fall[0]._id, explicit: false },
+        { title: 'Seattle Yodel', track_number: '15', song_length: '0:38', album_id: The_Fall[0]._id, explicit: false },
+        { title: 'Intro: I Switched My Robot Off', track_number: '1', song_length: '0:24', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Ascension', track_number: '2', song_length: '2:35', album_id: Humanz[0]._id, explicit: true },
+        { title: 'Strobelite', track_number: '3', song_length: '4:32', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Saturnz Barz', track_number: '4', song_length: '3:01', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Momentz', track_number: '5', song_length: '3:16', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Interlude: The Non-Conformist Oath', track_number: '6', song_length: '0:21', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Submission', track_number: '7', song_length: '3:21', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Charger', track_number: '8', song_length: '3:34', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Interlude: Elevator Going Up', track_number: '9', song_length: '0:04', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Andromeda', track_number: '10', song_length: '3:17', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Busted and Blue', track_number: '11', song_length: '4:37', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Interlude: Talk Radio', track_number: '12', song_length: '0:19', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Carnival', track_number: '13', song_length: '2:15', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Let Me Out', track_number: '14', song_length: '2:55', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Interlude: Penthouse', track_number: '15', song_length: '0:11', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Sex Murder Party', track_number: '16', song_length: '4:19', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Shes My Collar', track_number: '17', song_length: '3:29', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Interlude: The Elephant', track_number: '18', song_length: '0:11', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Hallelujah Money', track_number: '19', song_length: '4:23', album_id: Humanz[0]._id, explicit: false },
+        { title: 'We Got the Power', track_number: '20', song_length: '2:19', album_id: Humanz[0]._id, explicit: false },
+        { title: 'Humility', track_number: '1', song_length: '3:17', album_id: The_Now_Now[0]._id, explicit: false },
+        { title: 'Tranz', track_number: '2', song_length: '2:42', album_id: The_Now_Now[0]._id, explicit: false },
+        { title: 'Hollywood', track_number: '3', song_length: '4:53', album_id: The_Now_Now[0]._id, explicit: false },
+        { title: 'Kansas', track_number: '4', song_length: '4:08', album_id: The_Now_Now[0]._id, explicit: false },
+        { title: 'Sorcererz', track_number: '5', song_length: '3:00', album_id: The_Now_Now[0]._id, explicit: false },
+        { title: 'Idaho', track_number: '6', song_length: '3:42', album_id: The_Now_Now[0]._id, explicit: false },
+        { title: 'Lake Zurich', track_number: '7', song_length: '4:13', album_id: The_Now_Now[0]._id, explicit: false },
+        { title: 'Magic City', track_number: '8', song_length: '4:00', album_id: The_Now_Now[0]._id, explicit: false },
+        { title: 'Fire Flies', track_number: '9', song_length: '3:53', album_id: The_Now_Now[0]._id, explicit: false },
+        { title: 'One Percent', track_number: '10', song_length: '2:20', album_id: The_Now_Now[0]._id, explicit: false },
+        { title: 'Souk Eye', track_number: '11', song_length: '4:34', album_id: The_Now_Now[0]._id, explicit: false },
+        { title: 'Strange Timez', track_number: '1', song_length: '3:48', album_id: Song_Machine_Season_One_Strange_Timez[0]._id, explicit: false },
+        { title: 'The Valley of the Pagans', track_number: '2', song_length: '3:00', album_id: Song_Machine_Season_One_Strange_Timez[0]._id, explicit: false },
+        { title: 'The Lost Chord', track_number: '3', song_length: '4:03', album_id: Song_Machine_Season_One_Strange_Timez[0]._id, explicit: false },
+        { title: 'Pac-Man', track_number: '4', song_length: '3:12', album_id: Song_Machine_Season_One_Strange_Timez[0]._id, explicit: false },
+        { title: 'Chalk Tablet Towers', track_number: '5', song_length: '3:02', album_id: Song_Machine_Season_One_Strange_Timez[0]._id, explicit: false },
+        { title: 'The Pink Phantom', track_number: '6', song_length: '4:13', album_id: Song_Machine_Season_One_Strange_Timez[0]._id, explicit: false },
+        { title: 'Aries', track_number: '7', song_length: '4:14', album_id: Song_Machine_Season_One_Strange_Timez[0]._id, explicit: false },
+        { title: 'Friday 13th', track_number: '8', song_length: '3:37', album_id: Song_Machine_Season_One_Strange_Timez[0]._id, explicit: false },
+        { title: 'Dead Butterflies', track_number: '9', song_length: '4:33', album_id: Song_Machine_Season_One_Strange_Timez[0]._id, explicit: false },
+        { title: 'Desole', track_number: '10', song_length: '5:33', album_id: Song_Machine_Season_One_Strange_Timez[0]._id, explicit: false },
+        { title: 'Momentary Bliss', track_number: '11', song_length: '3:43', album_id: Song_Machine_Season_One_Strange_Timez[0]._id, explicit: false },
+    ]
+    await Song.insertMany(songs)
+    console.log('Created some songs')
+}
+const run = async() => {
+    await main()
+    db.close()
+}
+run()
