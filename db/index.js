@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-let MONGODB_URI = process.env.PROD_MONGODB || process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/gorillazDatabase'
+let MONGODB_PROD = "mongodb+srv://vincem46:gorillazapi@cluster0.hatstmh.mongodb.net/gorillazDatabase"
+let MONGODB_URI = MONGODB_PROD || process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/gorillazDatabase'
 
 mongoose.connect( MONGODB_URI, {
     useUnifiedTopology: true, useNewUrlParser: true
